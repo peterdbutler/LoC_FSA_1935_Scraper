@@ -1,0 +1,20 @@
+1935 HOUSEKEEPING ISSUES:
+- build script to sort downloaded files 
+    - place all resolutioned images into single folder for ea. record? (53k Records)
+- determine if ALL tiffs have been downloaded
+    - possible use of fsa1935_tifs*.csv
+    - logs may help in Spiders/.logs/
+- check status of jpegs, confirm fully downloaded
+    - possible use of fsa1935_jpegs*.csv
+    - logs may help in Spiders/.logs/
+- use FSA_Records to generate and fill metadata for tiffs (low priority)
+
+IMAGE PREPROCESSING
+- generate training data:
+    - build module to shape images to square
+    - generate training data to populate copies of squared images with centered holes
+    - repeat for images with rotations and mirros to generate more train data
+
+TRAIN MODEL
+- check ideal algorithms for this detail
+
