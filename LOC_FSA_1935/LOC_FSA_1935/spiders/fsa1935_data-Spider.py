@@ -1,9 +1,10 @@
-# NOTE: run with below command:
-#   scrapy crawl fsa1935_data -o [csvTitle].csv -t 2>&1 | tee [somelogfile]
 """
 Use to create a csv of metadata associated with a series of records.
 
 returns a csv of collated metadata IF the associated record has digitized images.
+
+NOTE: run with below command:
+   scrapy crawl fsa1935_data -o [csvTitle].csv -t csv 2>&1 | tee [somelogfile]
 """
 
 import scrapy
@@ -38,8 +39,8 @@ class FSA_Spider(scrapy.Spider):
             # populate FsaRecord fields
             head = BeautifulSoup(response.text, 'lxml').find('head')
 
-            record['subjects'] = []
-            record['descriptions'] = []
+            #record['subjects'] = []
+            #record['descriptions'] = []
 
             # populate FsaRecord fields:
             title = head.find('meta', {'name':'dc.title'})
@@ -67,11 +68,22 @@ class FSA_Spider(scrapy.Spider):
                 record['rights'] = 'unknown'
 
             # subjects
-            for tag in head.find_all('meta', {'name':'dc.subject'}):
-                record['subjects'].append(tag['content'])
+            subjects = head.find('meta', {'name':'dc.subject'})
+            if subjects:
+                record['subjects'] = subjects['content']
+            else:
+                record['subjects'] = 'unknown'
+            #for tag in head.find_all('meta', {'name':'dc.subject'}):
+            #    record['subjects'].append(tag['content'])
+
             # descriptions
-            for tag in head.find_all('meta', {'name':'description'}):
-                record['descriptions'].append(tag['content'])
+            descriptions = head.find('meta', {'name':'dc.description'})
+            if descriptions:
+                record['descriptions'] = descriptions['content']
+            else:
+                record['descriptions'] = 'unknown'
+            #for tag in head.find_all('meta', {'name':'description'}):
+            #    record['descriptions'].append(tag['content'])
 
             # match to image title:
             if image['type'] == 'image/gif':
