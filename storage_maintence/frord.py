@@ -1,6 +1,7 @@
 from os import listdir, makedirs, chdir
 from os.path import isfile,join
 from shutil import copy2 as copy
+from Spinner import Spinner
 import csv
 
 # Directory for files list to be reoganized
@@ -13,6 +14,10 @@ tgtPath = '/media/pete/FSA_IMAGES/1935/'
 print('Generating filesList .... ')
 filesList = listdir(srcPath)
 print('filesList size =', len(filesList))
+
+# start spinner
+spinner = Spinner()
+spinner.start()
 
 # Change into path directory
 chdir(srcPath)
@@ -55,3 +60,6 @@ if badFiles:
             wr.writerow(badFiles)
     except OSError:
         print(badFiles)
+
+# terminate spinner
+spinner.stop()

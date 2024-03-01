@@ -7,7 +7,7 @@ returns a FsaRecordUrl scrapy.item object
 
 NOTE: The FsaRecordUrl item is fine for our purposes, but the item attribute 
 'recordUrl' is maybe a little misleading title. It is suggested the final output csv
-is modified so that this field name is removed or chnaged to something more 
+is modified so that this field name is removed or changed to something more 
 appropriate
 
 NOTE: run with below command:
